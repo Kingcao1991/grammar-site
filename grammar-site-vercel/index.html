@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>日语语法练习</title>
+  <script>
+    const examples = [
+      {
+        chinese: "如果明天下雨的话，就不去公园了。",
+        japanese: "もし明日雨が<mark class='grammar'>降ったら</mark>、公園に行きません。",
+        grammarPoint: "降ったら",
+      },
+      {
+        chinese: "即使工作再忙，也要锻炼身体。",
+        japanese: "いくら仕事が忙しくても、<mark class='grammar'>運動しなければなりません</mark>。",
+        grammarPoint: "運動しなければなりません",
+      },
+      {
+        chinese: "我想吃寿司。",
+        japanese: "<mark class='grammar'>寿司を食べたいです</mark>。",
+        grammarPoint: "食べたい",
+      },
+    ];
+
+    let current = null;
+
+    function getRandomExample() {
+      const index = Math.floor(Math.random() * examples.length);
+      current = examples[index];
+      document.getElementById("chinese").textContent = current.chinese;
+      document.getElementById("answer").innerHTML = "";
+      document.getElementById("buttons").style.display = "none";
+    }
+
+    function showAnswer() {
+      if (current) {
+        document.getElementById("answer").innerHTML = current.japanese;
+        document.getElementById("buttons").style.display = "flex";
+      }
+    }
+
+    function recordAnswer(correct) {
+      console.log(`User ${correct ? "correctly" : "incorrectly"} answered:`, current);
+      getRandomExample();
+    }
+  </script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 1em;
+      max-width: 500px;
+      margin: auto;
+      background: #fdfdfd;
+    }
+    .grammar {
+      color: red;
+      font-weight: bold;
+    }
+    button {
+      padding: 0.6em 1.2em;
+      margin: 0.5em;
+      border: none;
+      border-radius: 6px;
+      font-size: 1em;
+      background-color: #4CAF50;
+      color: white;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #buttons {
+      display: none;
+      justify-content: space-around;
+    }
+  </style>
+</head>
+<body>
+  <h2>🎌 日语语法练习</h2>
+  <p><strong>翻译：</strong><span id="chinese"></span></p>
+  <p><strong>日文：</strong><span id="answer"></span></p>
+  <button onclick="showAnswer()">显示正确答案</button>
+  <div id="buttons">
+    <button onclick="recordAnswer(true)">我答对了</button>
+    <button onclick="recordAnswer(false)">我答错了</button>
+  </div>
+  <hr />
+  <button onclick="getRandomExample()">抽选一句新的</button>
+
+  <script>
+    getRandomExample();
+  </script>
+</body>
+</html>
